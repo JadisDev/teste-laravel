@@ -1,64 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+#  Sistema de X
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema para [complete]
 
-## About Laravel
+## 🚀 Começando
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 📋 Pré-requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+De que coisas você precisa para instalar o software e como instalá-lo?
 
-## Learning Laravel
+* [Docker](https://www.docker.com/)
+* [Docker compose](https://docs.docker.com/compose/install/)
+* [Git](https://git-scm.com/)
+* [Repositório](https://github.com/JadisDev/teste-laravel)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🔧 Instalação
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
 
-## Laravel Sponsors
+Va até onde deseja instalar o projeto e baixe o código fonte
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```
+git clone git@github.com:JadisDev/teste-laravel.git
+```
 
-### Premium Partners
+Entre no diretório:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```
+cd teste-laravel
+```
 
-## Contributing
+Copie e cole .env.example e ronomei para .env, na raiz do projeto.
+Altere os valores das variáveis de ambiente:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+DB_CONNECTION=pgsql
+DB_HOST=172.18.0.4
+DB_PORT=5432
+DB_DATABASE=postgres
+DB_USERNAME=postgres
+DB_PASSWORD=secret
+```
+Construa as imagens do sistema com comando:
 
-## Code of Conduct
+```
+docker-compose build
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Subir as imagens do sistema com comando:
 
-## Security Vulnerabilities
+```
+docker-compose up
+```
+Saída do comando docker-compose up:
+![image](https://github.com/JadisDev/driver-back/assets/20782995/d4900efa-cf32-4bc2-8161-9faf9c12315b)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Entre no container laravel-app:
 
-## License
+```
+docker exec -it 27cb164dbb21 bash
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Instale as dependências do projeto:
+
+```
+composer install
+```
+
+Inspecione o container postgres:
+
+```
+docker inspect b277835947d4
+```
+Copie o valor de IPAddress e cole no .env na chave DB_HOST
+
+Criei as tabelas do projeto:
+
+```
+php artisan migrate
+```
+
+
+Termine com um exemplo de como obter dados do sistema ou como usá-los para uma pequena demonstração.
+
+## ⚙️ Executando os testes
+
+Os testes unitários são uma prática de desenvolvimento de software em que pequenas partes de código, chamadas unidades, são testadas de forma isolada.
+
+O sistema tem alguns testes unitários. Para executar e ver a cobertura de teste rode o comando de dentro do container laravel-app
+
+```
+vendor/bin/phpunit --coverage-html coverage
+```
+Esse comando irá criar um aquivo em coverage/index.html.
+Para ver a cobertura de testes, abra esse aquivo no navegadir.
+Exemplo de saída:
+![image](https://github.com/JadisDev/driver-back/assets/20782995/764204e8-8015-4cef-81ab-490902a8a909)
+
+## 🛠️ Construído com
+
+Ferramentas usadas no projeto
+
+* [PHP >= 7.3 || >= 8.0](https://www.php.net/) - Linguagem
+* [Laravel](https://laravel.com/) - Framework
+* [Phpunit](https://phpunit.de/) - Usada para testar
+
+## ✒️ Autor
+
+* **Desenvolvedor responsável** [Jadis Jale](https://github.com/JadisDev)
+
+
+---
+⌨️ com ❤️ por [Jadis Jale](https://github.com/JadisDev) 😊
